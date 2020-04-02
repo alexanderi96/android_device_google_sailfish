@@ -21,15 +21,15 @@
 # lines, aosp and du, hence its name.
 #
 
+# Include DU common configuration
+include vendor/du/config/common_full_phone.mk
+
 # Inherit from AOSP products. Most specific first.
 $(call inherit-product, device/google/marlin/aosp_sailfish.mk)
 
-# Inherit DU product configuration
-$(call inherit-product, vendor/du/config/common_full_phone.mk)
-
-# Custom device configuration
-$(call inherit-product-if-exists, vendor/google/sailfish/device-vendor-sailfish.mk)
-$(call inherit-product-if-exists, vendor/pixelgapps/pixel-gapps.mk)
+# Inherit from the common Open Source product configuration
+$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 
 ## Camera
 PRODUCT_PACKAGES += \
@@ -61,3 +61,6 @@ BUILD_FINGERPRINT="google/sailfish/sailfish:10/QP1A.191005.007.A3/5972272:user/r
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.fingerprint=google/sailfish/sailfish:10/QP1A.191005.007.A3/5972272:user/release-keys
+
+$(call inherit-product-if-exists, vendor/google/marlin/marlin-vendor.mk)
+$(call inherit-product-if-exists, vendor/pixelgapps/pixel-gapps.mk)
